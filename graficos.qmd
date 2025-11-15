@@ -130,12 +130,6 @@ anim <- p_anim +
  )
 ```
 
-Una vez generado el GIF, se puede guardar en una carpeta `img/` e insertarlo así:
-
-```markdown
-![Animación de ejemplo](img/animacion_ejemplo.gif)
-```
+## Una vez generado el GIF, se puede guardar en una carpeta `img/` e insertarlo así:
 
 ![Animación de ejemplo](img/animacion_ejemplo.gif)
-
-
