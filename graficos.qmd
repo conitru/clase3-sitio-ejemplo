@@ -12,6 +12,8 @@ title: "Gráficos estáticos e interactivos"
 
 library(ggplot2)
 library(plotly)
+library(dplyr)
+library(lubridate)
 ```
 
 Usaremos la base `mpg` que viene incluida en `ggplot2`.
@@ -26,13 +28,19 @@ Usaremos la base `mpg` que viene incluida en `ggplot2`.
 #| message: false
 #| warning: false
 
-ggplot(mpg, aes(displ, hwy, color = class)) +
-  geom_point(alpha = 0.7) +
+# Datos de economía que vienen en ggplot2
+datos_econ <- economics |>
+  mutate(
+    tasa_desemp = unemploy / pop * 100
+  )
+
+ggplot(datos_econ, aes(x = date, y = tasa_desemp)) +
+  geom_line(color = "#2c3e50", linewidth = 0.6) +
   labs(
-    x = "Cilindrada (litros)",
-    y = "Rendimiento carretera (mpg)",
-    color = "Clase",
-    title = "Relación entre cilindrada y rendimiento"
+    title = "Tasa de desempleo estimada en el tiempo",
+    subtitle = "Serie mensual (economics, ggplot2)",
+    x = "Fecha",
+    y = "Desempleo (% de la población)"
   ) +
   theme_minimal()
 ```
@@ -64,25 +72,30 @@ plotly::ggplotly(p)
 
 ## Densidades por clase (interactivo)
 
+
+
 ```{r}
-#| label: densidad-ggplotly
+#| label: grafico-ggplotly
 #| echo: true
 #| message: false
 #| warning: false
 
-p_dens <- ggplot(mpg, aes(x = hwy, fill = class)) +
-  geom_density(alpha = 0.45) +
-  scale_fill_brewer(palette = "Set2") +
+p_linea <- ggplot(datos_econ, aes(x = date, y = tasa_desemp)) +
+  geom_line(linewidth = 0.6) +
   labs(
-    x = "Rendimiento carretera (mpg)",
-    y = "Densidad",
-    fill = "Clase",
-    title = "Distribución del rendimiento por clase de vehículo"
+    title = "Tasa de desempleo estimada en el tiempo (interactivo)",
+    x = "Fecha",
+    y = "Desempleo (% de la población)"
   ) +
   theme_minimal()
 
-plotly::ggplotly(p_dens)
+plotly::ggplotly(p_linea)
 ```
+
+
+
+
+
 
 ---
 
