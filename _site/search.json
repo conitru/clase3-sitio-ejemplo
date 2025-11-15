@@ -1,0 +1,51 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Inicio",
+    "section": "",
+    "text": "Sitio ejemplo — Clase 3\nEste es un sitio de ejemplo para el curso Reproducibilidad y Comunicación de Resultados.\nAquí vamos a practicar:\n\nCómo estructurar un sitio web con Quarto.\nCómo publicarlo en GitHub Pages.\nCómo incluir gráficos estáticos e interactivos en HTML.\n\nEn esta página solo dejamos la bienvenida.\nLos gráficos estarán en la pestaña “Gráficos” del menú."
+  },
+  {
+    "objectID": "graficos.html",
+    "href": "graficos.html",
+    "title": "Gráficos estáticos e interactivos",
+    "section": "",
+    "text": "library(ggplot2)\nlibrary(plotly)\n\nUsaremos la base mpg que viene incluida en ggplot2."
+  },
+  {
+    "objectID": "graficos.html#paquetes",
+    "href": "graficos.html#paquetes",
+    "title": "Gráficos estáticos e interactivos",
+    "section": "",
+    "text": "library(ggplot2)\nlibrary(plotly)\n\nUsaremos la base mpg que viene incluida en ggplot2."
+  },
+  {
+    "objectID": "graficos.html#gráfico-estático",
+    "href": "graficos.html#gráfico-estático",
+    "title": "Gráficos estáticos e interactivos",
+    "section": "Gráfico estático",
+    "text": "Gráfico estático\n\nggplot(mpg, aes(displ, hwy, color = class)) +\n  geom_point(alpha = 0.7) +\n  labs(\n    x = \"Cilindrada (litros)\",\n    y = \"Rendimiento carretera (mpg)\",\n    color = \"Clase\",\n    title = \"Relación entre cilindrada y rendimiento\"\n  ) +\n  theme_minimal()"
+  },
+  {
+    "objectID": "graficos.html#gráfico-interactivo-con-ggplotly",
+    "href": "graficos.html#gráfico-interactivo-con-ggplotly",
+    "title": "Gráficos estáticos e interactivos",
+    "section": "Gráfico interactivo con ggplotly",
+    "text": "Gráfico interactivo con ggplotly\n\np &lt;- ggplot(mpg, aes(displ, hwy, color = class)) +\n  geom_point(alpha = 0.7) +\n  labs(\n    x = \"Cilindrada (litros)\",\n    y = \"Rendimiento carretera (mpg)\",\n    color = \"Clase\",\n    title = \"Gráfico interactivo con ggplotly\"\n  ) +\n  theme_minimal()\n\nplotly::ggplotly(p)"
+  },
+  {
+    "objectID": "graficos.html#densidades-por-clase-interactivo",
+    "href": "graficos.html#densidades-por-clase-interactivo",
+    "title": "Gráficos estáticos e interactivos",
+    "section": "Densidades por clase (interactivo)",
+    "text": "Densidades por clase (interactivo)\n\np_dens &lt;- ggplot(mpg, aes(x = hwy, fill = class)) +\n  geom_density(alpha = 0.45) +\n  scale_fill_brewer(palette = \"Set2\") +\n  labs(\n    x = \"Rendimiento carretera (mpg)\",\n    y = \"Densidad\",\n    fill = \"Clase\",\n    title = \"Distribución del rendimiento por clase de vehículo\"\n  ) +\n  theme_minimal()\n\nplotly::ggplotly(p_dens)"
+  },
+  {
+    "objectID": "graficos.html#opcional-animación-con-gganimate",
+    "href": "graficos.html#opcional-animación-con-gganimate",
+    "title": "Gráficos estáticos e interactivos",
+    "section": "(Opcional) Animación con gganimate",
+    "text": "(Opcional) Animación con gganimate\nEste chunk no se evalúa al renderizar el sitio, pero muestra la estructura básica.\n\nlibrary(ggplot2)\nlibrary(gganimate)\n\nset.seed(123)\ndatos_anim &lt;- data.frame(\n  x = rnorm(200),\n  y = rnorm(200),\n  grupo = rep(letters[1:4], each = 50),\n  tiempo = rep(1:5, length.out = 200)\n)\n\np_anim &lt;- ggplot(datos_anim, aes(x, y, color = grupo)) +\n  geom_point(alpha = 0.7, size = 2) +\n  labs(\n    title = \"Frame: {frame_time}\",\n    color = \"Grupo\",\n    x = \"X\",\n    y = \"Y\"\n  ) +\n  theme_minimal()\n\nanim &lt;- p_anim +\n  transition_time(tiempo) +\n  ease_aes(\"linear\")\n\n# Para guardar la animación como GIF en su computador:\n# animate(\n#   anim,\n#   renderer = gifski_renderer(\"animacion_ejemplo.gif\"),\n#   width = 600, height = 400\n# )\n\nUna vez generado el GIF, se puede guardar en una carpeta img/ e insertarlo así:\n![Animación de ejemplo](img/animacion_ejemplo.gif)"
+  }
+]

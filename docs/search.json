@@ -1,0 +1,9 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Inicio",
+    "section": "",
+    "text": "Sitio ejemplo — Clase 3\nEste es un sitio de ejemplo para el curso Reproducibilidad y Comunicación de Resultados.\nAquí vamos a practicar:\n\nCómo estructurar un sitio web con Quarto.\nCómo publicarlo en GitHub Pages.\nCómo incluir gráficos estáticos e interactivos en HTML.\n\nEn esta página solo dejamos la bienvenida.\nLos gráficos estarán en la pestaña “Gráficos” del menú."
+  }
+]

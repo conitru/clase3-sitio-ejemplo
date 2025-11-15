@@ -1,0 +1,137 @@
+---
+title: "Gráficos estáticos e interactivos"
+---
+
+## Paquetes
+
+```{r}
+#| label: paquetes
+#| echo: true
+#| message: false
+#| warning: false
+
+library(ggplot2)
+library(plotly)
+```
+
+Usaremos la base `mpg` que viene incluida en `ggplot2`.
+
+---
+
+## Gráfico estático
+
+```{r}
+#| label: grafico-estatico
+#| echo: true
+#| message: false
+#| warning: false
+
+ggplot(mpg, aes(displ, hwy, color = class)) +
+  geom_point(alpha = 0.7) +
+  labs(
+    x = "Cilindrada (litros)",
+    y = "Rendimiento carretera (mpg)",
+    color = "Clase",
+    title = "Relación entre cilindrada y rendimiento"
+  ) +
+  theme_minimal()
+```
+
+---
+
+## Gráfico interactivo con `ggplotly`
+
+```{r}
+#| label: grafico-ggplotly
+#| echo: true
+#| message: false
+#| warning: false
+
+p <- ggplot(mpg, aes(displ, hwy, color = class)) +
+  geom_point(alpha = 0.7) +
+  labs(
+    x = "Cilindrada (litros)",
+    y = "Rendimiento carretera (mpg)",
+    color = "Clase",
+    title = "Gráfico interactivo con ggplotly"
+  ) +
+  theme_minimal()
+
+plotly::ggplotly(p)
+```
+
+---
+
+## Densidades por clase (interactivo)
+
+```{r}
+#| label: densidad-ggplotly
+#| echo: true
+#| message: false
+#| warning: false
+
+p_dens <- ggplot(mpg, aes(x = hwy, fill = class)) +
+  geom_density(alpha = 0.45) +
+  scale_fill_brewer(palette = "Set2") +
+  labs(
+    x = "Rendimiento carretera (mpg)",
+    y = "Densidad",
+    fill = "Clase",
+    title = "Distribución del rendimiento por clase de vehículo"
+  ) +
+  theme_minimal()
+
+plotly::ggplotly(p_dens)
+```
+
+---
+
+## (Opcional) Animación con `gganimate`
+
+Este chunk **no se evalúa al renderizar el sitio**, pero muestra la estructura básica.
+
+```{r}
+#| label: gganimate-ejemplo
+#| echo: true
+#| eval: false
+#| message: false
+#| warning: false
+
+library(ggplot2)
+library(gganimate)
+
+set.seed(123)
+datos_anim <- data.frame(
+  x = rnorm(200),
+  y = rnorm(200),
+  grupo = rep(letters[1:4], each = 50),
+  tiempo = rep(1:5, length.out = 200)
+)
+
+p_anim <- ggplot(datos_anim, aes(x, y, color = grupo)) +
+  geom_point(alpha = 0.7, size = 2) +
+  labs(
+    title = "Frame: {frame_time}",
+    color = "Grupo",
+    x = "X",
+    y = "Y"
+  ) +
+  theme_minimal()
+
+anim <- p_anim +
+  transition_time(tiempo) +
+  ease_aes("linear")
+
+# Para guardar la animación como GIF en su computador:
+# animate(
+#   anim,
+#   renderer = gifski_renderer("animacion_ejemplo.gif"),
+#   width = 600, height = 400
+# )
+```
+
+Una vez generado el GIF, se puede guardar en una carpeta `img/` e insertarlo así:
+
+```markdown
+![Animación de ejemplo](img/animacion_ejemplo.gif)
+```
