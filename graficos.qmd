@@ -123,11 +123,11 @@ anim <- p_anim +
   ease_aes("linear")
 
 # Para guardar la animación como GIF en su computador:
-# animate(
-#   anim,
-#   renderer = gifski_renderer("animacion_ejemplo.gif"),
-#   width = 600, height = 400
-# )
+ animate(
+   anim,
+   renderer = gifski_renderer("animacion_ejemplo.gif"),
+   width = 600, height = 400
+ )
 ```
 
 Una vez generado el GIF, se puede guardar en una carpeta `img/` e insertarlo así:
@@ -135,3 +135,7 @@ Una vez generado el GIF, se puede guardar en una carpeta `img/` e insertarlo as�
 ```markdown
 ![Animación de ejemplo](img/animacion_ejemplo.gif)
 ```
+
+![Animación de ejemplo](img/animacion_ejemplo.gif)
+
+
