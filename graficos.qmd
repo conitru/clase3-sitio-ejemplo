@@ -70,10 +70,6 @@ plotly::ggplotly(p)
 
 ---
 
-## Densidades por clase (interactivo)
-
-
-
 ```{r}
 #| label: grafico-ggplotly
 #| echo: true
@@ -93,56 +89,44 @@ plotly::ggplotly(p_linea)
 ```
 
 
-
-
-
-
----
-
-## (Opcional) Animación con `gganimate`
-
-Este chunk **no se evalúa al renderizar el sitio**, pero muestra la estructura básica.
+## Densidades por clase (interactivo)
 
 ```{r}
-#| label: gganimate-ejemplo
+#| label: densidad-ggplotly
 #| echo: true
-#| eval: false
 #| message: false
 #| warning: false
 
-library(ggplot2)
-library(gganimate)
+datos_econ2 <- datos_econ |>
+  mutate(
+    decada = paste0(floor(year(date) / 10) * 10, "s")
+  )
 
-set.seed(123)
-datos_anim <- data.frame(
-  x = rnorm(200),
-  y = rnorm(200),
-  grupo = rep(letters[1:4], each = 50),
-  tiempo = rep(1:5, length.out = 200)
-)
-
-p_anim <- ggplot(datos_anim, aes(x, y, color = grupo)) +
-  geom_point(alpha = 0.7, size = 2) +
+p_scatter <- ggplot(datos_econ2, aes(
+  x = psavert,
+  y = tasa_desemp,
+  color = decada,
+  text = paste(
+    "Fecha:", date,
+    "<br>Desempleo (%):", round(tasa_desemp, 1),
+    "<br>Ahorro personal (% ingreso):", round(psavert, 1),
+    "<br>Década:", decada
+  )
+)) +
+  geom_point(alpha = 0.7) +
   labs(
-    title = "Frame: {frame_time}",
-    color = "Grupo",
-    x = "X",
-    y = "Y"
+    title = "Relación entre desempleo y ahorro personal",
+    subtitle = "Colores por década (economics, ggplot2)",
+    x = "Ahorro personal (% del ingreso)",
+    y = "Desempleo (% de la población)",
+    color = "Década"
   ) +
   theme_minimal()
 
-anim <- p_anim +
-  transition_time(tiempo) +
-  ease_aes("linear")
+plotly::ggplotly(
+  p_scatter,
+  tooltip = "text"
+)
 
-# Para guardar la animación como GIF en su computador:
- animate(
-   anim,
-   renderer = gifski_renderer("animacion_ejemplo.gif"),
-   width = 600, height = 400
- )
 ```
 
-## Una vez generado el GIF, se puede guardar en una carpeta `img/` e insertarlo así:
-
-![Animación de ejemplo](img/animacion_ejemplo.gif)
