@@ -65,15 +65,8 @@ ggplot(datos_econ, aes(x = date, y = tasa_desemp)) +
   theme_minimal()
 ```
 
-<<<<<<< HEAD
 Este gráfico sirve como **referencia base** antes de pasar a interactividad.
 
----
-=======
----
-
-## Gráfico animado
->>>>>>> 62342e4081c009f53798d5e78ebf502a1ebdf8b6
 
 ## Gráfico 2 · Serie de tiempo interactiva con `ggplotly`
 
