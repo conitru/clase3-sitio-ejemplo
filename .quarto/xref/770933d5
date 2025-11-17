@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 {"entries":[],"headings":["paquetes","preparar-los-datos-de-ejemplo","gráfico-1-serie-de-tiempo-del-desempleo-estático","gráfico-2-serie-de-tiempo-interactiva-con-ggplotly","gráfico-3-desempleo-vs.-ahorro-personal-por-década","gráfico-4-resumen-por-década-caja-puntos","idea-de-animación-con-gganimate-opcional","insertar-la-animación-en-el-sitio-si-existe-el-gif"]}
+=======
+{"entries":[],"headings":["paquetes","gráfico-estático","gráfico-animado","densidades-por-clase-interactivo"]}
+>>>>>>> 62342e4081c009f53798d5e78ebf502a1ebdf8b6
