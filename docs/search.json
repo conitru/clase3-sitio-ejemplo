@@ -11,35 +11,35 @@
     "href": "graficos.html",
     "title": "Gráficos estáticos e interactivos",
     "section": "",
-    "text": "library(ggplot2)\nlibrary(plotly)\n\nUsaremos la base mpg que viene incluida en ggplot2."
+    "text": "library(ggplot2)\nlibrary(plotly)\nlibrary(dplyr)\nlibrary(lubridate)\n\nUsaremos la base mpg que viene incluida en ggplot2."
   },
   {
     "objectID": "graficos.html#paquetes",
     "href": "graficos.html#paquetes",
     "title": "Gráficos estáticos e interactivos",
     "section": "",
-    "text": "library(ggplot2)\nlibrary(plotly)\n\nUsaremos la base mpg que viene incluida en ggplot2."
+    "text": "library(ggplot2)\nlibrary(plotly)\nlibrary(dplyr)\nlibrary(lubridate)\n\nUsaremos la base mpg que viene incluida en ggplot2."
   },
   {
     "objectID": "graficos.html#gráfico-estático",
     "href": "graficos.html#gráfico-estático",
     "title": "Gráficos estáticos e interactivos",
     "section": "Gráfico estático",
-    "text": "Gráfico estático\n\nggplot(mpg, aes(displ, hwy, color = class)) +\n  geom_point(alpha = 0.7) +\n  labs(\n    x = \"Cilindrada (litros)\",\n    y = \"Rendimiento carretera (mpg)\",\n    color = \"Clase\",\n    title = \"Relación entre cilindrada y rendimiento\"\n  ) +\n  theme_minimal()"
+    "text": "Gráfico estático\n\n# Datos de economía que vienen en ggplot2\ndatos_econ &lt;- economics |&gt;\n  mutate(\n    tasa_desemp = unemploy / pop * 100\n  )\n\nggplot(datos_econ, aes(x = date, y = tasa_desemp)) +\n  geom_line(color = \"#2c3e50\", linewidth = 0.6) +\n  labs(\n    title = \"Tasa de desempleo estimada en el tiempo\",\n    subtitle = \"Serie mensual (economics, ggplot2)\",\n    x = \"Fecha\",\n    y = \"Desempleo (% de la población)\"\n  ) +\n  theme_minimal()"
   },
   {
     "objectID": "graficos.html#gráfico-interactivo-con-ggplotly",
     "href": "graficos.html#gráfico-interactivo-con-ggplotly",
     "title": "Gráficos estáticos e interactivos",
     "section": "Gráfico interactivo con ggplotly",
-    "text": "Gráfico interactivo con ggplotly\n\np &lt;- ggplot(mpg, aes(displ, hwy, color = class)) +\n  geom_point(alpha = 0.7) +\n  labs(\n    x = \"Cilindrada (litros)\",\n    y = \"Rendimiento carretera (mpg)\",\n    color = \"Clase\",\n    title = \"Gráfico interactivo con ggplotly\"\n  ) +\n  theme_minimal()\n\nplotly::ggplotly(p)"
+    "text": "Gráfico interactivo con ggplotly\n\np &lt;- ggplot(mpg, aes(displ, hwy, color = class)) +\n  geom_point(alpha = 0.7) +\n  labs(\n    x = \"Cilindrada (litros)\",\n    y = \"Rendimiento carretera (mpg)\",\n    color = \"Clase\",\n    title = \"Gráfico interactivo con ggplotly\"\n  ) +\n  theme_minimal()\n\nplotly::ggplotly(p)\n\n\n\n\n\n\n\np_linea &lt;- ggplot(datos_econ, aes(x = date, y = tasa_desemp)) +\n  geom_line(linewidth = 0.6) +\n  labs(\n    title = \"Tasa de desempleo estimada en el tiempo (interactivo)\",\n    x = \"Fecha\",\n    y = \"Desempleo (% de la población)\"\n  ) +\n  theme_minimal()\n\nplotly::ggplotly(p_linea)"
   },
   {
     "objectID": "graficos.html#densidades-por-clase-interactivo",
     "href": "graficos.html#densidades-por-clase-interactivo",
     "title": "Gráficos estáticos e interactivos",
     "section": "Densidades por clase (interactivo)",
-    "text": "Densidades por clase (interactivo)\n\np_dens &lt;- ggplot(mpg, aes(x = hwy, fill = class)) +\n  geom_density(alpha = 0.45) +\n  scale_fill_brewer(palette = \"Set2\") +\n  labs(\n    x = \"Rendimiento carretera (mpg)\",\n    y = \"Densidad\",\n    fill = \"Clase\",\n    title = \"Distribución del rendimiento por clase de vehículo\"\n  ) +\n  theme_minimal()\n\nplotly::ggplotly(p_dens)"
+    "text": "Densidades por clase (interactivo)\n\ndatos_econ2 &lt;- datos_econ |&gt;\n  mutate(\n    decada = paste0(floor(year(date) / 10) * 10, \"s\")\n  )\n\np_scatter &lt;- ggplot(datos_econ2, aes(\n  x = psavert,\n  y = tasa_desemp,\n  color = decada,\n  text = paste(\n    \"Fecha:\", date,\n    \"&lt;br&gt;Desempleo (%):\", round(tasa_desemp, 1),\n    \"&lt;br&gt;Ahorro personal (% ingreso):\", round(psavert, 1),\n    \"&lt;br&gt;Década:\", decada\n  )\n)) +\n  geom_point(alpha = 0.7) +\n  labs(\n    title = \"Relación entre desempleo y ahorro personal\",\n    subtitle = \"Colores por década (economics, ggplot2)\",\n    x = \"Ahorro personal (% del ingreso)\",\n    y = \"Desempleo (% de la población)\",\n    color = \"Década\"\n  ) +\n  theme_minimal()\n\nplotly::ggplotly(\n  p_scatter,\n  tooltip = \"text\"\n)"
   },
   {
     "objectID": "graficos.html#opcional-animación-con-gganimate",
