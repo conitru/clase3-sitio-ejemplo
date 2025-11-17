@@ -47,31 +47,10 @@ ggplot(datos_econ, aes(x = date, y = tasa_desemp)) +
 
 ---
 
-## Gráfico interactivo con `ggplotly`
+## Gráfico animado
 
 ```{r}
 #| label: grafico-ggplotly
-#| echo: true
-#| message: false
-#| warning: false
-
-p <- ggplot(mpg, aes(displ, hwy, color = class)) +
-  geom_point(alpha = 0.7) +
-  labs(
-    x = "Cilindrada (litros)",
-    y = "Rendimiento carretera (mpg)",
-    color = "Clase",
-    title = "Gráfico interactivo con ggplotly"
-  ) +
-  theme_minimal()
-
-plotly::ggplotly(p)
-```
-
----
-
-```{r}
-#| label: grafico-ggplotly1
 #| echo: true
 #| message: false
 #| warning: false

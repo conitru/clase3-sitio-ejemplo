@@ -61,5 +61,12 @@
     "title": "Gráficos estáticos e interactivos",
     "section": "Una vez generado el GIF, se puede guardar en una carpeta img/ e insertarlo así:",
     "text": "Una vez generado el GIF, se puede guardar en una carpeta img/ e insertarlo así:\n\n\n\nAnimación de ejemplo"
+  },
+  {
+    "objectID": "graficos.html#gráfico-animado",
+    "href": "graficos.html#gráfico-animado",
+    "title": "Gráficos estáticos e interactivos",
+    "section": "Gráfico animado",
+    "text": "Gráfico animado\n\np_linea &lt;- ggplot(datos_econ, aes(x = date, y = tasa_desemp)) +\n  geom_line(linewidth = 0.6) +\n  labs(\n    title = \"Tasa de desempleo estimada en el tiempo (interactivo)\",\n    x = \"Fecha\",\n    y = \"Desempleo (% de la población)\"\n  ) +\n  theme_minimal()\n\nplotly::ggplotly(p_linea)"
   }
 ]
