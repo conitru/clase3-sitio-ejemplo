@@ -202,13 +202,13 @@ anim <- p_anim +
   exit_fade()
 
 # Para generar un GIF (ejecutar en la consola de R dentro del proyecto):
-# library(gifski)
-# anim_save(
-#   filename  = "img/animacion_ejemplo.gif",
-#   animation = anim,
-#   width     = 800,
-#   height    = 450
-# )
+ library(gifski)
+ anim_save(
+   filename  = "img/animacion_ejemplo.gif",
+   animation = anim,
+   width     = 800,
+   height    = 450
+ )
 ```
 
 ---
@@ -222,6 +222,8 @@ Si se generó el archivo `img/animacion_ejemplo.gif`, se puede mostrar así:
 
 ![Animación de ejemplo](img/animacion_ejemplo.gif)
 ```
+
+![Animación de ejemplo](img/animacion_ejemplo.gif)
 
 En el sitio publicado:
 
